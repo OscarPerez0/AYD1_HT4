@@ -17,6 +17,26 @@ app.post('/sum', (req, res) => {
   return res.json({ result: sum });
 });
 
+app.post('/primo', (req, res) => {
+  const { num } = req.body;
+  
+  if (typeof num !== 'number') {
+    return res.status(400).json({ error: 'El dato no es de tipo numerico' });
+  }
+
+  if (num <= 1) {
+    return res.json({esPrimo : false});
+  }
+
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) {
+      return res.json({esPrimo : false});
+    }
+  }
+
+  return res.json({esPrimo : true});
+});
+
 // Start the server
 app.listen(4000, () => {
   console.log('Server is running on port 3000');
